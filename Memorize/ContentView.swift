@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🚲","🚘","✈️","🛵","🛻","🚌","🚑","🚒","🏍","🚀","🚢", "🛴","🚃","🚐", "🚖"]
-    @State var emojiCount: Int = 4
+    var vehiclesTheme = ["🚲","🚘","✈️","🛵","🛻","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚐","🚖", "🚁","🛸","🛶","🚤","🚂","🛰"]
+    var sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🍦","🧁","🎂","🍮", "🍩","🍪","🍯","🥐","🥨","🥮","🥠"]
+    var animalsTheme = ["🦆","🦅","🦖","🐅","🐪","🦓","🐆","🦒","🦙","🐑","🐕","🐈", "🐍","🦜","🦢","🐇","🦝","🐓","🐖","🐎"]
+    @State var theme = ["🦆","🦅","🦖","🐅","🐪","🦓","🐆","🦒","🦙","🐑","🐕","🐈", "🐍","🦜","🦢","🐇","🦝","🐓","🐖","🐎"]
+    
+    @State var emojiCount: Int = 20
     
     var body: some View {
         VStack {
@@ -18,23 +22,23 @@ struct ContentView: View {
                 .foregroundColor(.red)
                 .bold()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
+                    ForEach(theme[0..<emojiCount], id: \.self) { emoji in
                         CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                     }
                 }
             }
-            .foregroundColor(.red)
-            Spacer()
             HStack {
-                remove
-                Spacer()
-                add
+                changeTheme
+//                remove
+//                Spacer()
+//                add
             }
             .padding(.horizontal)
             .font(.largeTitle)
         }
         .padding(.horizontal)
+        .foregroundColor(.red)
     }
     
     var remove: some View {
@@ -49,12 +53,35 @@ struct ContentView: View {
     
     var add: some View {
         Button {
-            if emojiCount < emojis.count {
+            if emojiCount < vehiclesTheme.count {
                 emojiCount += 1
             }
         } label: {
             Image(systemName: "plus.circle")
         }
+    }
+    
+    var changeTheme: some View {
+        HStack {
+            Button {
+                theme = sweetTheme
+            } label: {
+                Image(systemName: "fork.knife.circle.fill")
+            }
+            Spacer()
+            Button {
+                theme = animalsTheme
+            } label: {
+                Image(systemName: "pawprint.circle.fill")
+            }
+            Spacer()
+            Button {
+                theme = vehiclesTheme
+            } label: {
+                Image(systemName: "car")
+            }
+        }
+        
     }
 }
 
