@@ -8,31 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    var vehiclesTheme = ["🚲","🚘","✈️","🛵","🛻","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚐","🚖", "🚁","🛸","🛶","🚤","🚂","🛰"]
-    var sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🍦","🧁","🎂","🍮", "🍩","🍪","🍯","🥐","🥨","🥮","🥠"]
-    var animalsTheme = ["🦆","🦅","🦖","🐅","🐪","🦓","🐆","🦒","🦙","🐑","🐕","🐈", "🐍","🦜","🦢","🐇","🦝","🐓","🐖","🐎"]
-    @State var theme = ["🦆","🦅","🦖","🐅","🐪","🦓","🐆","🦒","🦙","🐑","🐕","🐈", "🐍","🦜","🦢","🐇","🦝","🐓","🐖","🐎"]
     
-    @State var emojiCount: Int = 20
+    var vehiclesTheme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖", "🚁","🛸","🛶","🚤","🚂"]
+    var sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
+    var animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
+    
+    
+    @State var theme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"].shuffled()
     
     var body: some View {
         VStack {
             Text("MEMORIZE!")
                 .font(.largeTitle)
-                .foregroundColor(.red)
                 .bold()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
-                    ForEach(theme[0..<emojiCount], id: \.self) { emoji in
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 75))]) {
+                    ForEach(theme[0..<theme.count], id: \.self) { emoji in
                         CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                     }
                 }
             }
             HStack {
                 changeTheme
-//                remove
-//                Spacer()
-//                add
             }
             .padding(.horizontal)
             .font(.largeTitle)
@@ -41,48 +38,38 @@ struct ContentView: View {
         .foregroundColor(.red)
     }
     
-    var remove: some View {
-        Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
-            }
-        } label: {
-            Image(systemName: "minus.circle")
-        }
-    }
-    
-    var add: some View {
-        Button {
-            if emojiCount < vehiclesTheme.count {
-                emojiCount += 1
-            }
-        } label: {
-            Image(systemName: "plus.circle")
-        }
-    }
-    
     var changeTheme: some View {
         HStack {
             Button {
-                theme = sweetTheme
+                theme = sweetTheme.shuffled()
             } label: {
-                Image(systemName: "fork.knife.circle.fill")
+                VStack {
+                    Image(systemName: "fork.knife.circle")
+                    Text("Food").font(.body)
+                }
             }
             Spacer()
             Button {
-                theme = animalsTheme
+                theme = animalsTheme.shuffled()
             } label: {
-                Image(systemName: "pawprint.circle.fill")
+                VStack {
+                    Image(systemName: "pawprint.circle")
+                    Text("Animals").font(.body)
+                }
             }
             Spacer()
             Button {
-                theme = vehiclesTheme
+                theme = vehiclesTheme.shuffled()
             } label: {
-                Image(systemName: "car")
+                VStack {
+                    Image(systemName: "car")
+                    Text("Vehicles").font(.body)
+                }
             }
         }
-        
+        .foregroundColor(.accentColor)
     }
+
 }
 
 struct CardView: View {
@@ -97,7 +84,7 @@ struct CardView: View {
                 shape.foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(content)
-                    .font(.largeTitle)
+                    .font(.system(size: 60))
             } else {
                 shape
             }
@@ -107,18 +94,6 @@ struct CardView: View {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
