@@ -4,6 +4,7 @@
 //
 //  Created by Paula on 9/21/22.
 //
+//  VIEW
 
 import SwiftUI
 
