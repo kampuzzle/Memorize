@@ -13,8 +13,8 @@ class EmojiMemoryGame: ObservableObject {
     static let animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
     static let sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
     
-    static func createMemoryGame() -> MemoryGame<String>{
-        MemoryGame<String>(numberOfPairs: 4) { pairIndex in
+    static func createMemoryGame() -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairs: 8) { pairIndex in
             sweetTheme[pairIndex]
         }
     }
