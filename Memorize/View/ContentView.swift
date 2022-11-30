@@ -9,6 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    static let vehiclesTheme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖","🚁", "🛸", "🛶","🚤","🚂"]
+    static let animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
+    static let sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
+    @State var theme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖","🚁", "🛸", "🛶","🚤","🚂"]
+    
     @ObservedObject var viewModel: EmojiMemoryGame
         
     var body: some View {
@@ -31,27 +37,37 @@ struct ContentView: View {
         .padding(.horizontal)
         .foregroundColor(.red)
     }
-}
-
-struct CardView: View {
-    let card: MemoryGame<String>.Card
     
-    var body: some View {
-        ZStack {
-            let shape = RoundedRectangle(cornerRadius: 20)
-
-            if card.isFaceUp {
-                shape.foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 3)
-                Text(card.content)
-                    .font(.system(size: 60))
-                    .frame(width: /*@START_MENU_TOKEN@*/80.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
-            } else if card.isMatched {
-                shape.opacity(0)
-            } else {
-                shape.fill()
+    var changeTheme: some View {
+        HStack {
+            Button {
+                theme = ContentView.sweetTheme.shuffled()
+            } label: {
+                VStack {
+                    Image(systemName: "fork.knife.circle")
+                    Text("Food").font(.body)
+                }
+            }
+            Spacer()
+            Button {
+                theme = ContentView.animalsTheme.shuffled()
+            } label: {
+                VStack {
+                    Image(systemName: "pawprint.circle")
+                    Text("Animals").font(.body)
+                }
+            }
+            Spacer()
+            Button {
+                theme = ContentView.vehiclesTheme.shuffled()
+            } label: {
+                VStack {
+                    Image(systemName: "car")
+                    Text("Vehicles").font(.body)
+                }
             }
         }
+        .foregroundColor(.accentColor)
     }
 }
 
@@ -67,11 +83,11 @@ struct CardView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(viewModel: EmojiMemoryGame())
-            .preferredColorScheme(.dark)
-        ContentView(viewModel: EmojiMemoryGame())
-            .preferredColorScheme(.light)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(viewModel: EmojiMemoryGame())
+//            .preferredColorScheme(.dark)
+//        ContentView(viewModel: EmojiMemoryGame())
+//            .preferredColorScheme(.light)
+//    }
+//}

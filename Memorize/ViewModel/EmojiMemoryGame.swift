@@ -13,14 +13,22 @@ class EmojiMemoryGame: ObservableObject {
     static let animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
     static let sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
     
-    static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairs: 8) { pairIndex in
-            sweetTheme[pairIndex]
+    private(set) var theme: Theme
+    
+    init(theme: Theme) {
+        self.theme = theme
+        model = EmojiMemoryGame.createMemoryGame(withTheme: theme)
+    }
+    
+    static func createMemoryGame(withTheme theme: Theme) -> MemoryGame<String> {
+        let shuffledItens = theme.emojis.shuffled()
+        return MemoryGame<String>(numberOfPairs: 8) { pairIndex in
+            shuffledItens[pairIndex]
         }
     }
         
-    @Published private var model: MemoryGame<String> = createMemoryGame()
-        
+    @Published private var model: MemoryGame<String>
+
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }
@@ -29,5 +37,14 @@ class EmojiMemoryGame: ObservableObject {
     func choose(_ card: MemoryGame<String>.Card) {
         objectWillChange.send()
         model.choose(card)
+    }
+    
+    func changeTheme(to theme: Theme) {
+        self.theme = theme
+        model = EmojiMemoryGame.createMemoryGame(withTheme: theme)
+    }
+    
+    func shuffle() {
+        model.shuffle()
     }
 }
