@@ -10,20 +10,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    static let vehiclesTheme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖","🚁", "🛸", "🛶","🚤","🚂"]
-    static let animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
-    static let sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
-    @State var theme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖","🚁", "🛸", "🛶","🚤","🚂"]
     
     @ObservedObject var viewModel: EmojiMemoryGame
-        
+    
     var body: some View {
         VStack {
             Text("MEMORIZE!")
                 .font(.largeTitle)
                 .bold()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 75))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
@@ -33,43 +29,32 @@ struct ContentView: View {
                     }
                 }
             }
+            HStack(alignment: .firstTextBaseline) {
+                newGame.padding(.horizontal)
+                info.padding(.horizontal)
+            }
         }
         .padding(.horizontal)
         .foregroundColor(.red)
     }
     
-    var changeTheme: some View {
-        HStack {
-            Button {
-                theme = ContentView.sweetTheme.shuffled()
-            } label: {
-                VStack {
-                    Image(systemName: "fork.knife.circle")
-                    Text("Food").font(.body)
-                }
+    var newGame: some View {
+        Button(action: viewModel.newGame, label: {
+            VStack {
+                Image(systemName: "play.fill").font(.largeTitle)
+                Text("Novo Jogo")
             }
-            Spacer()
-            Button {
-                theme = ContentView.animalsTheme.shuffled()
-            } label: {
-                VStack {
-                    Image(systemName: "pawprint.circle")
-                    Text("Animals").font(.body)
-                }
-            }
-            Spacer()
-            Button {
-                theme = ContentView.vehiclesTheme.shuffled()
-            } label: {
-                VStack {
-                    Image(systemName: "car")
-                    Text("Vehicles").font(.body)
-                }
-            }
+        })
+    }
+    
+    var info: some View {
+        VStack {
+            Text("Tema atual: \(viewModel.currentTheme.name)")
+            Text("Pontos: \(viewModel.score)")
         }
-        .foregroundColor(.accentColor)
     }
 }
+    
 
 
 

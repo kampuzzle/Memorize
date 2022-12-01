@@ -20,7 +20,7 @@ struct CardView: View {
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content)
                     .font(.system(size: 60))
-                    .frame(width: 80, height: 100)
+                    .frame(width: 60, height: 90)
             } else if card.isMatched {
                 shape.opacity(0)
             } else {
