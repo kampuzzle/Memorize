@@ -14,7 +14,7 @@ struct Theme {
     var color: Color
     var numberOfPairs: Int
     
-    fileprivate init(name: String, withEmojis emojis: Array<String>, numberOfPairs: Int, withColor color: Color) {
+    init(name: String, withEmojis emojis: Array<String>, numberOfPairs: Int, withColor color: Color) {
         self.name = name
         self.emojis = emojis
         self.numberOfPairs = numberOfPairs 

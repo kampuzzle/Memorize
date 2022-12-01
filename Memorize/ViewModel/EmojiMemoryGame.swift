@@ -9,11 +9,25 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
+    
+    // MARK: - Themes
+    
+    typealias Card = MemoryGame<String>.Card
+    
+    private let availableThemes = [vehiclesTheme, animalsTheme, sweetTheme, flagsTheme]
     static let vehiclesTheme = ["🚲","🚘","✈️","🛵","🚌","🚑","🚒","🏍","🚀","🚢", "🛴", "🚃","🚖","🚁", "🛸", "🛶","🚤","🚂"]
     static let animalsTheme = ["🦖","🐅","🐆","🦒","🦙","🐑", "🐕","🐈", "🐍","🦜","🦢","🐇"]
     static let sweetTheme = ["🍰","🍧","🍫","🍬","🍭","🥞","🧇","🍡","🍨","🧁","🎂","🍮", "🍩","🍪","🥮","🥠"]
+    static let flagsTheme = ["🇧🇷","🇨🇩","🇦🇹","🇦🇷","🇦🇲","🇦🇸","🇦🇩","🇧🇴","🇹🇩","🇨🇨","🇨🇦","🇨🇱","🇩🇪","🇭🇺" ,"🇯🇲","🇯🇵","🇰🇷","🇪🇸","🇹🇼","🇹🇳","🏴󠁧󠁢󠁳󠁣󠁴󠁿"]
     
-    private(set) var theme: Theme
+    // MARK: - Other variables
+    
+    private(set) var theme: Theme = Theme(name: "Doces", withEmojis: sweetTheme, numberOfPairs: 8, withColor: .purple)
+    
+    @Published private var model: MemoryGame<String>
+    @Published var currentTheme: Theme
+    var score: Int { model.score }
+    var cards: [Card] { model.cards }
     
     init(theme: Theme) {
         self.theme = theme
@@ -27,11 +41,7 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
         
-    @Published private var model: MemoryGame<String>
 
-    var cards: Array<MemoryGame<String>.Card> {
-        return model.cards
-    }
     
     // MARK: - Intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
