@@ -32,7 +32,7 @@ class EmojiMemoryGame: ObservableObject {
     init() {
         let randomTheme = availableThemes.randomElement()!
         let cardsContent = randomTheme.emojis.shuffled()
-        self.model = MemoryGame<String>(numberOfPairs: 15) { pairIndex in
+        self.model = MemoryGame<String>(numberOfPairs: 8) { pairIndex in
             cardsContent[pairIndex]
         }
         self.currentTheme = randomTheme
@@ -48,7 +48,7 @@ class EmojiMemoryGame: ObservableObject {
     func newGame() {
         let randomTheme = availableThemes.randomElement()!
         let cardsContent = randomTheme.emojis.shuffled()
-        model = MemoryGame<String>(numberOfPairs: 15) { pairIndex in
+        model = MemoryGame<String>(numberOfPairs: 8) { pairIndex in
             cardsContent[pairIndex]
         }
         currentTheme = randomTheme

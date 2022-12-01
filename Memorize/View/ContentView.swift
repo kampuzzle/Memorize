@@ -16,10 +16,10 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("MEMORIZE!")
-                .font(.largeTitle)
+                .font(.title)
                 .bold()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
