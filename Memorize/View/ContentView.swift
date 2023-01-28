@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Memorize
 //
-//  Created by Paula on 9/21/22.
+//  Created by Paula on 11/30/22.
 //
 //  VIEW
 
@@ -54,25 +54,3 @@ struct ContentView: View {
         }
     }
 }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(viewModel: EmojiMemoryGame())
-//            .preferredColorScheme(.dark)
-//        ContentView(viewModel: EmojiMemoryGame())
-//            .preferredColorScheme(.light)
-//    }
-//}
